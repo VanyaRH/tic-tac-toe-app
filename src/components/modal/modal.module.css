@@ -92,20 +92,11 @@
 
 @media(max-width: 480px){
     .modalContent{
-        font-size: 45px;
-    }
-}
-
-@media(max-width: 460px){
-    .modalContent{
-        font-size: 40px;
+        font-size: 50px;
     }
 }
 
 @media(max-width: 390px){
-    .modalContent{
-        font-size: 50px;
-    }
     .restartBtn{
         padding: 10px 20px;
     }
