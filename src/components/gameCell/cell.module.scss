@@ -28,6 +28,13 @@
       content: '';
     }
   }
+  @media(max-width: 767px){
+    &:hover{
+      &:after{
+        display: none;
+      }
+    }
+  }
 }
 
 .cell:nth-child(1){
