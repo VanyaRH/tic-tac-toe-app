@@ -23,15 +23,10 @@
       background-color: rgba(167, 22, 22, .4);
     }
   }
-  &:hover{
-    &:after{
-      content: '';
-    }
-  }
-  @media(max-width: 767px){
+  @media(min-width: 767px){
     &:hover{
       &:after{
-        display: none;
+        content: '';
       }
     }
   }
