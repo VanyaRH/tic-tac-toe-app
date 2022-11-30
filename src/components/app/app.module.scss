@@ -1,0 +1,8 @@
+@import "/src/global/mixins";
+
+.app{
+  width: 100%;
+  height: 100vh;
+  background-color: #000;
+  @include d-f(center, center);
+}

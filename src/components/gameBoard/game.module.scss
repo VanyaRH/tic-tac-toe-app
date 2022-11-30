@@ -1,0 +1,68 @@
+@import '/src/global/variables';
+@import '/src/global/mixins';
+
+.main{
+  @include d-f();
+  flex-direction: column;
+  .title{
+    color: $primary-color;
+    text-align: center;
+    font-size: 50px;
+    margin-bottom: 10px;
+    span{
+      color: $secondary-color;
+    }
+  }
+  .move{
+    color: $primary-color;
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+    span{
+      color: $secondary-color;
+    }
+  }
+  .gameBoard{
+    width: $game-board-size;
+    height: $game-board-size;
+    @include d-g;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    &.isEnd{
+      pointer-events: none;
+    }
+  }
+  .winnersScore{
+    @include d-f(center, space-between);
+    margin-top: 20px;
+    .winner{
+      color: $primary-color;
+      font-size: 20px;
+      .pl{
+        color: $secondary-color;
+      }
+    }
+    .resetBtn{
+      background: transparent;
+      border: none;
+      color: $secondary-color;
+      font-size: 20px;
+      cursor: pointer;
+      &:hover{
+        opacity: .8;
+      }
+    }
+  }
+  @media(max-width: 520px){
+    transform: scale(0.9);
+  }
+  @media(max-width: 480px){
+    transform: scale(0.9);
+  }
+  @media(max-width: 390px){
+    transform: scale(0.7);
+  }
+  @media(max-width: 350px){
+    transform: scale(0.6);
+  }
+}
