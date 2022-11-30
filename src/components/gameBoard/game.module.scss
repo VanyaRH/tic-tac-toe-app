@@ -48,6 +48,8 @@
       color: $secondary-color;
       font-size: 20px;
       cursor: pointer;
+      outline: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
       &:hover{
         opacity: .8;
       }
