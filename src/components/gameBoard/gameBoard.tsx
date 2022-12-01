@@ -124,13 +124,15 @@ export const GameBoard = ({ type }:IGameBoard) => {
     }
 
     const startBot = async () => {
-        if (gameModel.move % 2 === 1 || gameModel.winner) return;
-        const cloneArray = Object.assign(gameModel.cells);
-        let id = await AutoBot(cloneArray);
+       if (gameModel.move % 2 === 1 || gameModel.winner) return;
+       setTimeout(async () => {
+            const cloneArray = Object.assign(gameModel.cells);
+            let id = await AutoBot(cloneArray);
 
-        if (id !== null) {
-            onHandler(id);
-        }
+            if (id !== null) {
+                onHandler(id);
+            }
+        }, 400)
     }
 
     if(type == 'pc'){
