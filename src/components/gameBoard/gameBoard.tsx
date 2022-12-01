@@ -1,14 +1,25 @@
 import styles from './game.module.scss';
 import {GameCell} from "../gameCell/gameCell";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Cells, GameState, IGameState} from "../../models/cells";
 import {CellFill, FillTypes, ICell, WinnerTypes} from "../../types/main";
 import {checkWinner, getWinnerName} from "../../winner";
 import { Modal } from '../modal/modal';
+import {AutoBot} from "../../bot";
+import {Link} from "react-router-dom";
 
-export const GameBoard = () => {
+interface IGameBoard{
+    type: string;
+}
+
+export const GameBoard = ({ type }:IGameBoard) => {
     const [gameModel, setModel] = useState(GameState);
     const [isOpenModal, setIsOpenModal] = useState(false);
+    const isPCMove = gameModel.move%2 == 0 && type == 'pc';
+
+    useEffect(() => {
+        clearBoard(true);
+    }, [type]);
 
     const clearBoard = (clearScore:boolean = false) => {
         let newCells= gameModel.cells.map(cell => { cell.fill = ''; cell.isWin = false; return cell; });
@@ -112,15 +123,31 @@ export const GameBoard = () => {
         clearBoard();
     }
 
+    const startBot = async () => {
+        if (gameModel.move % 2 === 1 || gameModel.winner) return;
+        const cloneArray = Object.assign(gameModel.cells);
+        let id = await AutoBot(cloneArray);
+
+        if (id !== null) {
+            onHandler(id);
+        }
+    }
+
+    if(type == 'pc'){
+        startBot();
+    }
+
+
+
     return(
         <><div className={styles.main}>
-            <div className={styles.title}>
+            <Link className={styles.title} to={'/'}>
                 TIC <span>TAC</span> TOE
-            </div>
+            </Link>
             <div className={styles.move}>
                 Player turn&nbsp;<span>{gameModel.move%2 ? 'X' : 'O'}</span>
             </div>
-            <div className={`${styles.gameBoard} ${gameModel.winner && styles.isEnd}`}>
+            <div className={`${styles.gameBoard} ${gameModel.winner || isPCMove && styles.isEnd}`}>
                 {gameModel.cells.map((cell, index) => {
                     return <GameCell id={cell.id} key={index} fill={cell.fill} isWin={cell.isWin} onClick={onHandler}/>
                 })}
